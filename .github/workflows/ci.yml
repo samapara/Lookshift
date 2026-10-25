@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unit tests
+        run: scripts/test.sh
+      - name: Build the app
+        run: scripts/build-app.sh
+      - name: No networking code
+        run: |
+          if nm -u dist/Lookshift.app/Contents/MacOS/Lookshift | grep -E "URLSession|NSURLConnection|_socket|CFSocket|_nw_"; then
+            echo "Lookshift must not use networking APIs" >&2
+            exit 1
+          fi
