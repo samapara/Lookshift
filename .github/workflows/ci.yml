@@ -20,3 +20,9 @@ jobs:
             echo "Lookshift must not use networking APIs" >&2
             exit 1
           fi
+      - name: No developer options in the release build
+        run: |
+          if strings dist/Lookshift.app/Contents/MacOS/Lookshift | grep -E "^--(print-readings|preview-onboarding)$"; then
+            echo "Developer options must be compiled out of release builds" >&2
+            exit 1
+          fi

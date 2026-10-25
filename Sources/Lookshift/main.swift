@@ -18,6 +18,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 }
 
+#if DEBUG
+// Developer aids, compiled into debug builds only (`swift build`). Release builds must
+// not have them: another process could launch the app with these arguments and use
+// its camera permission without showing any UI.
 if CommandLine.arguments.contains("--print-readings") {
     // Developer aid: streams raw readings to the terminal: head turn, eyes ×2, head tilt,
     // eyes up/down ×2, face position x/y and size.
@@ -48,6 +52,7 @@ if let index = CommandLine.arguments.firstIndex(of: "--preview-onboarding") {
     }
     exit(0)
 }
+#endif
 
 let app = NSApplication.shared
 let delegate = AppDelegate()

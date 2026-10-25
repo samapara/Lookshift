@@ -79,8 +79,10 @@ scripts/make-dmg.sh                          # dist/Lookshift-<version>.dmg
 open dist/Lookshift.app
 ```
 
-- `dist/Lookshift.app/Contents/MacOS/Lookshift --print-readings` streams the raw head and eye numbers to the terminal.
-- `... --preview-onboarding <folder>` saves the setup window in each first-run state as PNG files.
+Debug builds (`swift build`) have two developer options. Release builds leave them out on purpose, so no other program can use Lookshift's camera permission through them.
+
+- `.build/debug/Lookshift --print-readings` streams the raw head and eye numbers to the terminal.
+- `.build/debug/Lookshift --preview-onboarding <folder>` saves the setup window in each first-run state as PNG files.
 - `swift scripts/make-art.swift` redraws the icon and the .dmg background.
 
 Ad-hoc signed builds get a new identity each time, so macOS asks for Accessibility again after every rebuild. Remove the old entry from the list and add the new app.

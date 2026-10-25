@@ -16,6 +16,16 @@ ZIP="dist/Lookshift-$VERSION.zip"
 
 scripts/test.sh
 scripts/build-app.sh
+
+# Never ship networking code or the debug-only developer options.
+BINARY=dist/Lookshift.app/Contents/MacOS/Lookshift
+if nm -u "$BINARY" | grep -qE "URLSession|NSURLConnection|_socket|CFSocket|_nw_"; then
+    echo "The app uses networking APIs; refusing to release" >&2; exit 1
+fi
+if strings "$BINARY" | grep -qE "^--(print-readings|preview-onboarding)$"; then
+    echo "Developer options are in the release build; refusing to release" >&2; exit 1
+fi
+
 scripts/make-dmg.sh
 
 if [[ -n "${DEVELOPER_ID:-}" && -n "${NOTARY_APPLE_ID:-}" ]]; then

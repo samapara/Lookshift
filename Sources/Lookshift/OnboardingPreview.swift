@@ -1,3 +1,4 @@
+#if DEBUG
 import AppKit
 import AVFoundation
 
@@ -69,3 +70,4 @@ enum OnboardingPreview {
         }
     }
 }
+#endif
