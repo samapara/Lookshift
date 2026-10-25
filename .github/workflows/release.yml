@@ -14,14 +14,17 @@ on:
   push:
     tags: ["v*"]
 
+# Nothing gets write access by default; only the release job does.
 permissions:
-  contents: write      # publish the release
-  id-token: write      # sign the build provenance
-  attestations: write  # store the provenance on GitHub
+  contents: read
 
 jobs:
   release:
     runs-on: macos-latest
+    permissions:
+      contents: write      # publish the release
+      id-token: write      # sign the build provenance
+      attestations: write  # store the provenance on GitHub
     env:
       # Secrets can't be read in a step's `if`, so expose whether one is set.
       HAS_CERTIFICATE: ${{ secrets.DEVELOPER_ID_P12 != '' }}
