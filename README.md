@@ -107,6 +107,10 @@ Ad-hoc signed builds get a new identity each time, so macOS asks for Accessibili
 
 Releases are built by GitHub Actions when a `v*` tag is pushed (`.github/workflows/release.yml`). Set the `DEVELOPER_ID` and notarization secrets described there to ship signed and notarized builds.
 
+## Contributing
+
+Bug reports, ideas and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the ground rules (everything stays on the Mac) and how to build and test, and [CHANGELOG.md](CHANGELOG.md) for what's changed.
+
 ## License
 
 [MIT](LICENSE) © 2026 Shubham Mapara

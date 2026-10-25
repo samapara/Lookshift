@@ -1,0 +1,52 @@
+name: Bug report
+description: Something doesn't work the way it should.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time. Please don't include photos or recordings of your face.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Calibrate window focus
+        2. Look at the terminal
+        3. …
+  - type: input
+    id: version
+    attributes:
+      label: Lookshift version
+      description: Menu bar eye icon → About Lookshift.
+      placeholder: "1.0.1"
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version and Mac
+      placeholder: "macOS 15.4, MacBook Air M3"
+    validations:
+      required: true
+  - type: dropdown
+    id: screens
+    attributes:
+      label: Screens
+      options:
+        - Laptop only
+        - Laptop and one monitor
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: accuracy
+    attributes:
+      label: Calibration accuracy
+      description: Settings → Window focus calibration shows a percentage. Paste it here if relevant.
