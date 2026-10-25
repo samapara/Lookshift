@@ -15,7 +15,9 @@ on:
     tags: ["v*"]
 
 permissions:
-  contents: write
+  contents: write      # publish the release
+  id-token: write      # sign the build provenance
+  attestations: write  # store the provenance on GitHub
 
 jobs:
   release:
@@ -24,9 +26,10 @@ jobs:
       # Secrets can't be read in a step's `if`, so expose whether one is set.
       HAS_CERTIFICATE: ${{ secrets.DEVELOPER_ID_P12 != '' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0   # the build number is the commit count
+          persist-credentials: false
 
       - name: Check the tag matches VERSION
         run: |
@@ -55,6 +58,15 @@ jobs:
           NOTARY_TEAM_ID: ${{ secrets.NOTARY_TEAM_ID }}
           NOTARY_PASSWORD: ${{ secrets.NOTARY_PASSWORD }}
         run: scripts/release.sh
+
+      # Signed proof that these files were built by this workflow from this commit.
+      # Anyone can check a download with: gh attestation verify <file> -R samapara/Lookshift
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-path: |
+            dist/Lookshift-*.dmg
+            dist/Lookshift-*.zip
 
       - name: Publish the GitHub Release
         env:

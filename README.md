@@ -5,6 +5,14 @@
 <p align="center">Look at a window, a pane or another screen, and your keyboard focus moves there.<br>
 Runs entirely on your Mac. No account, no cloud, nothing recorded.</p>
 
+<p align="center">
+  <a href="https://github.com/samapara/Lookshift/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/samapara/Lookshift/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://github.com/samapara/Lookshift/actions/workflows/codeql.yml"><img alt="CodeQL" src="https://github.com/samapara/Lookshift/actions/workflows/codeql.yml/badge.svg"></a>
+  <a href="https://scorecard.dev/viewer/?uri=github.com/samapara/Lookshift"><img alt="OpenSSF Scorecard" src="https://api.scorecard.dev/projects/github.com/samapara/Lookshift/badge"></a>
+  <a href="https://github.com/samapara/Lookshift/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/samapara/Lookshift"></a>
+  <a href="LICENSE"><img alt="MIT licence" src="https://img.shields.io/github/license/samapara/Lookshift"></a>
+</p>
+
 ---
 
 Lookshift is a menu-bar app for macOS. It uses your Mac's built-in camera to see where your head and eyes point, then brings the window you're looking at to the front, so you can start typing without reaching for the mouse or ⌘-Tab.
@@ -48,6 +56,16 @@ Lookshift lives under the eye icon in the menu bar.
   ```
 - Settings and calibration are stored in macOS's normal preferences on your Mac (`io.github.samapara.Lookshift`).
 - The camera light is on only while Lookshift is tracking. It turns off when you're away (no face for 20 seconds while idle, or after the idle time you set), when the screen locks, when the Mac sleeps and when you pause.
+
+## Security
+
+Every push runs the tests, GitHub's CodeQL code scanner and checks that the app has no networking code and no developer options. OpenSSF Scorecard grades the repository's security practices publicly, every GitHub Action is pinned to an exact commit, and each release file carries a signed record of the commit and workflow that built it. Details, and how to report a problem privately, are in [SECURITY.md](SECURITY.md).
+
+To check that a download really came from this repository (releases from 1.0.2 on):
+
+```sh
+gh attestation verify Lookshift-1.0.2.dmg -R samapara/Lookshift
+```
 
 ## Uninstall
 
